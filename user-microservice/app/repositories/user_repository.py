@@ -1,6 +1,30 @@
 from sqlalchemy.orm import Session
 from models.base_model import User
 
+def delete_user_by_id(db: Session, user_id: int):
+    if db.query(User).filter(User.id == user_id).delete():
+        db.commit()
+
+def update_user_by_id(db: Session, user_id: int, username: str = None, email: str = None, 
+                first_name: str = None, last_name: str = None, phone_number: str = None, password: str = None):
+      
+      user = db.query(User).filter(User.id == user_id).first()
+      updated_fields = {
+            "username": username,
+            "email": email,
+            "first_name": first_name,
+            "last_name": last_name,
+            "phone_number": phone_number,
+            "password": password if password else None
+      }
+      for field, value in updated_fields.items():
+        if value is not None:
+            setattr(user, field, value)
+      db.commit()
+      db.refresh(user)
+      return user
+
+
 def get_user_by_username(db: Session, username: str):
     print(type(db))
     a = db.query(User).filter(User.username == username).first()
@@ -9,6 +33,9 @@ def get_user_by_username(db: Session, username: str):
 
 def get_user_by_email(db: Session, email: str):
     return db.query(User).filter(User.email == email).first()
+
+def get_user_by_id(db: Session, id: str):
+    return db.query(User).filter(User.id == id).first()
 
 def search_user(db: Session, username: str = None, email: str = None, first_name: str = None):
     query = db.query(User)
