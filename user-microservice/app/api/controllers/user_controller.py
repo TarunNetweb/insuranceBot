@@ -11,7 +11,7 @@ def search_user_endpoint(
     username: str = None, 
     email: str = None, 
     first_name: str = None, 
-    db: Session = Depends(get_db), 
+    db: Session = Depends(get_db),
     user: dict = Depends(admin_required)  # Restrict to admins only
 ):
     users = search_user(db, username, email, first_name)

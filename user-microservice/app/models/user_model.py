@@ -8,7 +8,8 @@ class UserRegisterRequest(BaseModel):
     email: EmailStr
     phone_number: str
     password: str
-    role: str  
+    role: str
+    state: str
 
     class Config:
         orm_mode = True

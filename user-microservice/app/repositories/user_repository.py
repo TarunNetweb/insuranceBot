@@ -23,14 +23,15 @@ def search_user(db: Session, username: str = None, email: str = None, first_name
 def get_all_users(db: Session):
     return db.query(User).all()
 
-def create_user(db: Session, username: str, email: str, first_name, last_name,hashed_password: str, role: str, phone_number):
+def create_user(db: Session, username: str, email: str, first_name, last_name,hashed_password: str, role: str, phone_number, state:str):
     user = User(username=username, 
                 first_name=first_name,
                 last_name=last_name,
                 email=email, 
                 password=hashed_password, 
                 role=role, 
-                phone_number = phone_number)
+                phone_number = phone_number,
+                state = state)
     db.add(user)
     db.commit()
     db.refresh(user)

@@ -13,4 +13,5 @@ class User(Base):
     password = Column(String(255), nullable=False)
     created_at = Column(DateTime, default=func.now())
     updated_at = Column(DateTime, default=func.now(), onupdate=func.now())
-    role = Column(String(20), nullable=False)  
+    role = Column(String(20), nullable=False)
+    state = Column(String(100), nullable=False)

@@ -5,11 +5,11 @@ from repositories.user_repository import get_user_by_username, create_user
 from utils.helpers import hash_password, verify_password, create_access_token
 from core.config import settings
 
-def register_user(db: Session, username: str, email: str, first_name: str,last_name:str,password: str, role: str, phone_number: str):
+def register_user(db: Session, username: str, email: str, first_name: str,last_name:str,password: str, role: str, phone_number: str, state:str):
     if get_user_by_username(db, username):
         raise ValueError("Username already taken")
     hashed_password = hash_password(password)
-    return create_user(db, username, email, first_name, last_name,hashed_password,role,phone_number),
+    return create_user(db, username, email, first_name, last_name, hashed_password, role, phone_number, state),
 
 def authenticate_user( db: Session,username: str, password: str):
     print(type(db))

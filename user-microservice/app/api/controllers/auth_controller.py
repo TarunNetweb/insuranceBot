@@ -13,7 +13,7 @@ router = APIRouter()
 @router.post("/signup")
 def signup(request: UserRegisterRequest, db: Session = Depends(get_db)):
     try:
-        user = register_user(db, request.username, request.email, request.first_name, request.last_name, request.password,request.role,request.phone_number)
+        user = register_user(db, request.username, request.email, request.first_name, request.last_name, request.password, request.role, request.phone_number, request.state)
         return {"message": "User created successfully"}
     except ValueError as e:
         raise HTTPException(status_code=400, detail="error came " + str(e))
@@ -29,4 +29,4 @@ def login(request: UserLoginRequest, db: Session = Depends(get_db)):
 
 @router.get("/admin-only")
 def admin_only_route(user: dict = Depends(admin_required)):
-    return {"message": f"Welcome Admin {user['username']}! This is a restricted area."}
+    return {"message": f"Welcome Admin {user['username']}"}
