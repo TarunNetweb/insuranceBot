@@ -1,0 +1,9 @@
+fastapi>=0.70.0 # A common baseline for FastAPI
+sqlalchemy>=1.4.0 # A common baseline for SQLAlchemy
+python-socketio>=5.0.0
+uvicorn[standard]>=0.17.0
+
+# Add other core dependencies if identified:
+# Example: psycopg2-binary (if using PostgreSQL)
+# Example: python-jose[cryptography] (for JWT if auth service needs it)
+# Example: passlib[bcrypt] (for password hashing)
