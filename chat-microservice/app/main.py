@@ -12,6 +12,9 @@ from app.api import controllers
 from app.models.base_model import Base 
 from app.database.session import engine
 
+# Import the user router
+from app.api.controllers.user_controller import router as user_router
+
 # Initialize database: Create all tables if they don't exist.
 # Note: In a production environment, database migrations (e.g., using Alembic)
 # are a more robust approach than `create_all`.
@@ -35,6 +38,9 @@ app = FastAPI(
 # All WebSocket traffic to "/ws" will be handled by `socket_app`.
 app.mount("/ws", socket_app)
 
+# Include HTTP API routers
+app.include_router(user_router) # For user-related endpoints like /users/filter_by_name
+
 # Basic HTTP root endpoint for health check or welcome message.
 @app.get("/")
 async def read_root():
@@ -48,3 +54,4 @@ async def read_root():
 # 2. Database tables are created/verified based on SQLAlchemy models.
 # 3. Socket.IO event handlers defined in controllers are registered with the `sio` instance.
 # 4. The Socket.IO ASGI app is mounted under FastAPI, making it accessible via the specified path.
+# 5. HTTP routers (like user_router) are included for regular API endpoints.
